@@ -12,8 +12,8 @@ import { IconButton } from './core/IconButton';
 import { HStack } from './core/Stacks';
 import { EnvironmentActionsDropdown } from './EnvironmentActionsDropdown';
 import { ImportCurlButton } from './ImportCurlButton';
-import { LicenseBadge } from './LicenseBadge';
-import { RecentRequestsDropdown } from './RecentRequestsDropdown';
+//import { LicenseBadge } from './LicenseBadge';
+//import { RecentRequestsDropdown } from './RecentRequestsDropdown';
 import { SettingsDropdown } from './SettingsDropdown';
 import { SidebarActions } from './SidebarActions';
 import { WorkspaceActionsDropdown } from './WorkspaceActionsDropdown';
@@ -37,7 +37,7 @@ export const WorkspaceHeader = memo(function WorkspaceHeader({ className }: Prop
         'grid grid-cols-[auto_minmax(0,1fr)_auto] items-center w-full h-full',
       )}
     >
-      <HStack space={0.5} className={classNames("flex-1 pointer-events-none")}>
+      <HStack space={0.5} className={classNames('flex-1 pointer-events-none')}>
         <SidebarActions />
         <CookieDropdown />
         <HStack className="min-w-0">
@@ -47,7 +47,7 @@ export const WorkspaceHeader = memo(function WorkspaceHeader({ className }: Prop
         </HStack>
       </HStack>
       <div className="pointer-events-none w-full max-w-[30vw] mx-auto flex justify-center">
-        <RecentRequestsDropdown />
+        {/*<RecentRequestsDropdown />*/}
       </div>
       <div className="flex-1 flex gap-1 items-center h-full justify-end pointer-events-none pr-1">
         <ImportCurlButton />
@@ -56,7 +56,7 @@ export const WorkspaceHeader = memo(function WorkspaceHeader({ className }: Prop
             Enter Encryption Key
           </PillButton>
         ) : (
-          <LicenseBadge />
+          <></>
         )}
         <IconButton
           icon={
