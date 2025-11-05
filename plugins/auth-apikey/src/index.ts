@@ -21,13 +21,15 @@ export const plugin: PluginDefinition = {
         name: 'key',
         label: 'Key',
         dynamic: (_ctx, { values }) => {
-          return values.location === 'query' ? {
-            label: 'Parameter Name',
-            description: 'The name of the query parameter to add to the request',
-          } : {
-            label: 'Header Name',
-            description: 'The name of the header to add to the request',
-          };
+          return values.location === 'query'
+            ? {
+                label: 'Parameter Name',
+                description: 'The name of the query parameter to add to the request',
+              }
+            : {
+                label: 'Header Name',
+                description: 'The name of the header to add to the request',
+              };
         },
       },
       {
@@ -37,16 +39,63 @@ export const plugin: PluginDefinition = {
         optional: true,
         password: true,
       },
+      {
+        type: 'text',
+        name: 'extra_key',
+        label: 'Key',
+        dynamic: (_ctx, { values }) => {
+          return values.location === 'query'
+            ? {
+                label: 'Parameter Name',
+                description: 'The name of the query parameter to add to the request',
+              }
+            : {
+                label: 'Header Name',
+                description: 'The name of the header to add to the request',
+              };
+        },
+      },
+      {
+        type: 'text',
+        name: 'extra_value',
+        label: 'API Key',
+        optional: true,
+        password: true,
+      },
     ],
     async onApply(_ctx, { values }) {
       const key = String(values.key ?? '');
       const value = String(values.value ?? '');
+      const extra_key = String(values.extra_key ?? '');
+      const extra_value = String(values.extra_value ?? '');
       const location = String(values.location);
 
       if (location === 'query') {
-        return { setQueryParameters: [{ name: key, value }] };
+        if (!values.extra_key) {
+          return {
+            setQueryParameters: [{ name: key, value: value }],
+          };
+        } else {
+          return {
+            setQueryParameters: [
+              { name: key, value: value },
+              { name: extra_key, value: extra_value },
+            ],
+          };
+        }
       } else {
-        return { setHeaders: [{ name: key, value }] };
+        if (!values.extra_key) {
+          return {
+            setHeaders: [{ name: key, value: value }],
+          };
+        } else {
+          return {
+            setHeaders: [
+              { name: key, value: value },
+              { name: extra_key, value: extra_value },
+            ],
+          };
+        }
       }
     },
   },
