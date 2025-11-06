@@ -54,12 +54,27 @@ export async function convertToCurl(request: Partial<HttpRequest>) {
         '=',
         encodeURIComponent(request.authentication?.value ?? ''),
       ].join('');
+      if (request.authentication?.extra_key) {
+        finalUrl = [
+          finalUrl,
+          '&',
+          encodeURIComponent(request.authentication?.extra_key),
+          '=',
+          encodeURIComponent(request.authentication?.extra_value ?? ''),
+        ].join('');
+      }
     } else {
       request.headers = request.headers ?? [];
       request.headers.push({
         name: request.authentication?.key ?? 'X-Api-Key',
         value: request.authentication?.value ?? '',
       });
+      if (request.authentication?.extra_key) {
+        request.headers.push({
+          name: request.authentication?.extra_key,
+          value: request.authentication?.extra_value ?? '',
+        });
+      }
     }
   }
 
