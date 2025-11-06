@@ -2,8 +2,8 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      yaak_version:
-        description: 'YAAK_VERSION'
+      version:
+        description: 'VERSION'
         required: true
         default: 'v2025.8.1'
 
@@ -20,9 +20,6 @@ jobs:
           - platform: 'macos-latest' # for Arm-based Macs (M1 and above).
             args: '--target aarch64-apple-darwin'
             yaak_arch: 'arm64'
-          - platform: 'macos-latest' # for Intel-based Macs.
-            args: '--target x86_64-apple-darwin'
-            yaak_arch: 'x64'
           - platform: 'ubuntu-22.04'
             args: ''
             yaak_arch: 'x64'
@@ -32,7 +29,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
     timeout-minutes: 40
     steps:
-      - name: Checkout yaakapp/app
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node
@@ -80,16 +77,16 @@ jobs:
       - name: Run bootstrap
         run: npm run bootstrap
 
-      #      - name: Run lint
-      #        run: npm run lint
-      #
-      #      - name: Run tests
-      #        run: npm test
+      #- name: Run lint
+      #  run: npm run lint
+
+      #- name: Run tests
+      #  run: npm test
 
       - name: Set version
         run: npm run replace-version
         env:
-          YAAK_VERSION: ${{ github.event.inputs.yaak_version }}
+          YAAK_VERSION: ${{ github.event.inputs.version }}
 
       - uses: tauri-apps/tauri-action@v0
         env:
@@ -116,4 +113,4 @@ jobs:
           tagName: 'v__VERSION__'
           releaseName: 'Release __VERSION__'
           releaseBody: '[Changelog __VERSION__](https://yaak.app/blog/__VERSION__)'
-          args: '${{ matrix.args }} --config ./src-tauri/tauri.conf.json --no-sign'
+          args: '${{ matrix.args }} --config ./src-tauri/tauri.posteasy.conf.json --no-sign'

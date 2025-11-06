@@ -33,12 +33,12 @@ const SRC_BIN_MAP = {
 };
 
 const DST_BIN_MAP = {
-  [MAC_ARM]: 'yaaknode-aarch64-apple-darwin',
-  [MAC_X64]: 'yaaknode-x86_64-apple-darwin',
-  [LNX_ARM]: 'yaaknode-aarch64-unknown-linux-gnu',
-  [LNX_X64]: 'yaaknode-x86_64-unknown-linux-gnu',
-  [WIN_X64]: 'yaaknode-x86_64-pc-windows-msvc.exe',
-  [WIN_ARM]: 'yaaknode-aarch64-pc-windows-msvc.exe',
+  [MAC_ARM]: 'easynode-aarch64-apple-darwin',
+  [MAC_X64]: 'easynode-x86_64-apple-darwin',
+  [LNX_ARM]: 'easynode-aarch64-unknown-linux-gnu',
+  [LNX_X64]: 'easynode-x86_64-unknown-linux-gnu',
+  [WIN_X64]: 'easynode-x86_64-pc-windows-msvc.exe',
+  [WIN_ARM]: 'easynode-aarch64-pc-windows-msvc.exe',
 };
 
 const key = `${process.platform}_${process.env.YAAK_TARGET_ARCH ?? process.arch}`;
