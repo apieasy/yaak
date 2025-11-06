@@ -30,11 +30,11 @@ const SRC_BIN_MAP = {
 };
 
 const DST_BIN_MAP = {
-  [MAC_ARM]: 'yaakprotoc-aarch64-apple-darwin',
-  [MAC_X64]: 'yaakprotoc-x86_64-apple-darwin',
-  [LNX_ARM]: 'yaakprotoc-aarch64-unknown-linux-gnu',
-  [LNX_X64]: 'yaakprotoc-x86_64-unknown-linux-gnu',
-  [WIN_X64]: 'yaakprotoc-x86_64-pc-windows-msvc.exe',
+  [MAC_ARM]: 'easyprotoc-aarch64-apple-darwin',
+  [MAC_X64]: 'easyprotoc-x86_64-apple-darwin',
+  [LNX_ARM]: 'easyprotoc-aarch64-unknown-linux-gnu',
+  [LNX_X64]: 'easyprotoc-x86_64-unknown-linux-gnu',
+  [WIN_X64]: 'easyprotoc-x86_64-pc-windows-msvc.exe',
 };
 
 const dstDir = path.join(__dirname, `..`, 'src-tauri', 'vendored', 'protoc');
