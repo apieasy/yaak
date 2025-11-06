@@ -10,7 +10,7 @@ export function prepareImportQuerystring(
 
   // No querystring in url
   if (!querystring) {
-    return null;
+    return { url: baseUrl, urlParameters: [] };
   }
 
   const parsedParams = Array.from(new URLSearchParams(querystring).entries());

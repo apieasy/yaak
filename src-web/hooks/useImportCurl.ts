@@ -7,8 +7,11 @@ import { showToast } from '../lib/toast';
 import { activeWorkspaceIdAtom } from './useActiveWorkspace';
 import { useFastMutation } from './useFastMutation';
 import { wasUpdatedExternally } from './useRequestUpdateKey';
+import { useActiveEnvironmentVariables } from './useActiveEnvironmentVariables';
 
 export function useImportCurl() {
+  const variables = useActiveEnvironmentVariables();
+
   return useFastMutation({
     mutationKey: ['import_curl'],
     mutationFn: async ({
@@ -23,6 +26,13 @@ export function useImportCurl() {
         command,
         workspaceId,
       });
+      variables.forEach((env) => {
+        if (env.name == 'base_url') {
+          const split = importedRequest.url.split(/\?(.*)/s);
+          importedRequest.name = split[0]?.replace(env.value, '') ?? '';
+          importedRequest.url = importedRequest.url.replace(env.value, '${[ base_url ]}');
+        }
+      });
 
       let verb: string;
       if (overwriteRequestId == null) {
@@ -36,7 +46,6 @@ export function useImportCurl() {
           createdAt: r.createdAt,
           workspaceId: r.workspaceId,
           folderId: r.folderId,
-          name: r.name,
           sortPriority: r.sortPriority,
         }));
 
