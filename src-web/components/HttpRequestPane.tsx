@@ -53,6 +53,7 @@ import { MarkdownEditor } from './MarkdownEditor';
 import { RequestMethodDropdown } from './RequestMethodDropdown';
 import { UrlBar } from './UrlBar';
 import { UrlParametersEditor } from './UrlParameterEditor';
+import { useActiveEnvironmentVariables } from '../hooks/useActiveEnvironmentVariables';
 
 const GraphQLEditor = lazy(() =>
   import('./graphql/GraphQLEditor').then((m) => ({ default: m.GraphQLEditor })),
@@ -95,6 +96,7 @@ export function HttpRequestPane({ style, fullHeight, className, activeRequest }:
   const authTab = useAuthTab(TAB_AUTH, activeRequest);
   const headersTab = useHeadersTab(TAB_HEADERS, activeRequest);
   const inheritedHeaders = useInheritedHeaders(activeRequest);
+  const variables = useActiveEnvironmentVariables();
 
   const handleContentTypeChange = useCallback(
     async (contentType: string | null, patch: Partial<Omit<HttpRequest, 'headers'>> = {}) => {
@@ -293,11 +295,20 @@ export function HttpRequestPane({ style, fullHeight, className, activeRequest }:
       if (text.startsWith('curl ')) {
         importCurl({ overwriteRequestId: activeRequestId, command: text });
       } else {
+        let name = '';
+        variables.forEach((env) => {
+          if (env.name == 'base_url') {
+            const split = text.split(/\?(.*)/s);
+            name = split[0]?.replace(env.value, '') ?? '';
+
+            text = text.replace(env.value, '${[ base_url ]}');
+          }
+        });
         const patch = prepareImportQuerystring(text);
         if (patch != null) {
           e.preventDefault(); // Prevent input onChange
 
-          await patchModel(activeRequest, patch);
+          await patchModel(activeRequest, { ...patch, name: name });
           focusParamsTab();
 
           // Wait for request to update, then refresh the UI
