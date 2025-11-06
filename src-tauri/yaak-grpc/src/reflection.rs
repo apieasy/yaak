@@ -93,12 +93,12 @@ pub async fn fill_pool_from_files(
 
     let out = app_handle
         .shell()
-        .sidecar("yaakprotoc")
-        .expect("yaakprotoc not found")
+        .sidecar("easyprotoc")
+        .expect("easyprotoc not found")
         .args(args)
         .output()
         .await
-        .expect("yaakprotoc failed to run");
+        .expect("easyprotoc failed to run");
 
     if !out.status.success() {
         return Err(format!(
@@ -185,7 +185,7 @@ async fn file_descriptor_set_from_service_name(
         client,
         metadata,
     )
-    .await;
+        .await;
 }
 
 #[async_recursion]
@@ -249,7 +249,7 @@ async fn file_descriptor_set_by_filename(
         client,
         metadata,
     )
-    .await;
+        .await;
 }
 
 pub fn method_desc_to_path(md: &MethodDescriptor) -> PathAndQuery {
@@ -280,7 +280,7 @@ mod topology {
             }
         }
 
-        pub fn insert<I: IntoIterator<Item = T>>(&mut self, node: T, deps: I) {
+        pub fn insert<I: IntoIterator<Item=T>>(&mut self, node: T, deps: I) {
             self.out_graph.entry(node.clone()).or_insert(HashSet::new());
             for dep in deps {
                 self.out_graph.entry(node.clone()).or_insert(HashSet::new()).insert(dep.clone());
