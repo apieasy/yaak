@@ -1,0 +1,7 @@
+{
+  "productName": "PostEasy",
+  "identifier": "app.posteasy.dev",
+  "bundle": {
+    "externalBin": ["vendored/node/easynode", "vendored/protoc/easyprotoc"]
+  }
+}

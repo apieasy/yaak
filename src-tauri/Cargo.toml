@@ -16,10 +16,10 @@ members = [
 ]
 
 [package]
-name = "yaak-app"
+name = "posteasy"
 version = "0.0.0"
 edition = "2024"
-authors = ["Gregory Schier"]
+authors = ["Gregory Schier", "XinJun Ma"]
 publish = false
 
 # Produce a library for mobile support
