@@ -11,12 +11,13 @@ import { IconButton } from './core/IconButton';
 import { PillButton } from './core/PillButton';
 import { HStack } from './core/Stacks';
 import { EnvironmentActionsDropdown } from './EnvironmentActionsDropdown';
-import { ImportCurlButton } from './ImportCurlButton';
+//import { ImportCurlButton } from './ImportCurlButton';
 //import { LicenseBadge } from './LicenseBadge';
 //import { RecentRequestsDropdown } from './RecentRequestsDropdown';
 import { SettingsDropdown } from './SettingsDropdown';
 import { SidebarActions } from './SidebarActions';
 import { WorkspaceActionsDropdown } from './WorkspaceActionsDropdown';
+import { ImportCurl } from './ImportCurl';
 
 interface Props {
   className?: string;
@@ -50,7 +51,7 @@ export const WorkspaceHeader = memo(function WorkspaceHeader({ className }: Prop
         {/*<RecentRequestsDropdown />*/}
       </div>
       <div className="flex-1 flex gap-1 items-center h-full justify-end pointer-events-none pr-1">
-        <ImportCurlButton />
+        <ImportCurl />
         {showEncryptionSetup ? (
           <PillButton color="danger" onClick={setupOrConfigureEncryption}>
             Enter Encryption Key

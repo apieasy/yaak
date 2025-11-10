@@ -1,28 +1,13 @@
-import { clear, readText } from '@tauri-apps/plugin-clipboard-manager';
+import { clear } from '@tauri-apps/plugin-clipboard-manager';
 import * as m from 'motion/react-m';
-import { useEffect, useState } from 'react';
-//import { useImportCurl } from '../hooks/useImportCurl';
-import { useWindowFocus } from '../hooks/useWindowFocus';
+import React, { useState } from 'react';
 import { Button } from './core/Button';
 import { Icon } from './core/Icon';
 import { showDialog } from '../lib/dialog';
 import { ImportCurlDialog } from './ImportCurlDialog';
 
-export function ImportCurlButton() {
-  const focused = useWindowFocus();
-  const [clipboardText, setClipboardText] = useState('');
-
-  //const importCurl = useImportCurl();
+export function ImportCurl() {
   const [isLoading, setIsLoading] = useState(false);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: none
-  useEffect(() => {
-    readText().then(setClipboardText);
-  }, [focused]);
-
-  if (!clipboardText?.trim().startsWith('curl ')) {
-    return null;
-  }
 
   return (
     <m.div
@@ -48,12 +33,8 @@ export function ImportCurlButton() {
               render: ImportCurlDialog,
               onClose: async () => {
                 await clear();
-                setClipboardText('');
               },
             });
-            // await importCurl.mutateAsync({ command: clipboardText });
-            // await clear(); // Clear the clipboard so the button goes away
-            // setClipboardText('');
           } catch (e) {
             console.log('Failed to import curl', e);
           } finally {
