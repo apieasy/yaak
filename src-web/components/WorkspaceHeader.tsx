@@ -18,6 +18,7 @@ import { SettingsDropdown } from './SettingsDropdown';
 import { SidebarActions } from './SidebarActions';
 import { WorkspaceActionsDropdown } from './WorkspaceActionsDropdown';
 import { ImportCurl } from './ImportCurl';
+import { useDeleteSendHistory } from '../hooks/useDeleteSendHistory';
 
 interface Props {
   className?: string;
@@ -30,6 +31,7 @@ export const WorkspaceHeader = memo(function WorkspaceHeader({ className }: Prop
   const workspaceMeta = useAtomValue(activeWorkspaceMetaAtom);
   const showEncryptionSetup =
     workspace?.encryptionKeyChallenge != null && workspaceMeta?.encryptionKey == null;
+  const { mutate: deleteSendHistory } = useDeleteSendHistory();
 
   return (
     <div
@@ -52,6 +54,15 @@ export const WorkspaceHeader = memo(function WorkspaceHeader({ className }: Prop
       </div>
       <div className="flex-1 flex gap-1 items-center h-full justify-end pointer-events-none pr-1">
         <ImportCurl />
+        <IconButton
+          icon="history"
+          title="Clear Send History"
+          size="sm"
+          iconColor="secondary"
+          onClick={() => {
+            deleteSendHistory();
+          }}
+        />
         {showEncryptionSetup ? (
           <PillButton color="danger" onClick={setupOrConfigureEncryption}>
             Enter Encryption Key
