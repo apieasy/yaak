@@ -15,6 +15,10 @@ pub async fn start_nodejs_plugin_runtime<R: Runtime>(
     let plugin_runtime_main =
         app.path().resolve("vendored/plugin-runtime", BaseDirectory::Resource)?.join("index.cjs");
 
+    #[cfg(debug_assertions)]
+    let plugin_runtime_main = std::env::current_exe()?.parent().unwrap().to_path_buf()
+        .join("vendored/plugin-runtime").join("index.cjs");
+
     // HACK: Remove UNC prefix for Windows paths to pass to sidecar
     let plugin_runtime_main =
         dunce::simplified(plugin_runtime_main.as_path()).to_string_lossy().to_string();
