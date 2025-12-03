@@ -4067,6 +4067,58 @@ dependencies = [
 ]
 
 [[package]]
+name = "posteasy"
+version = "0.0.0"
+dependencies = [
+ "charset",
+ "chrono",
+ "cookie",
+ "eventsource-client",
+ "http",
+ "log",
+ "md5 0.8.0",
+ "mime_guess",
+ "openssl-sys",
+ "rand 0.9.1",
+ "reqwest",
+ "reqwest_cookie_store",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-clipboard-manager",
+ "tauri-plugin-deep-link",
+ "tauri-plugin-dialog",
+ "tauri-plugin-fs",
+ "tauri-plugin-log",
+ "tauri-plugin-opener",
+ "tauri-plugin-os",
+ "tauri-plugin-shell",
+ "tauri-plugin-single-instance",
+ "tauri-plugin-updater",
+ "tauri-plugin-window-state",
+ "thiserror 2.0.17",
+ "tokio",
+ "tokio-stream",
+ "ts-rs",
+ "uuid",
+ "yaak-common",
+ "yaak-crypto",
+ "yaak-fonts",
+ "yaak-git",
+ "yaak-grpc",
+ "yaak-http",
+ "yaak-license",
+ "yaak-mac-window",
+ "yaak-models",
+ "yaak-plugins",
+ "yaak-sse",
+ "yaak-sync",
+ "yaak-templates",
+ "yaak-ws",
+]
+
+[[package]]
 name = "potential_utf"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7804,58 +7856,6 @@ checksum = "0d65cbf2f12c15564212d48f4e3dfb87923d25d611f2aed18f4cb23f0413d89e"
 dependencies = [
  "libc",
  "rustix 1.0.7",
-]
-
-[[package]]
-name = "yaak-app"
-version = "0.0.0"
-dependencies = [
- "charset",
- "chrono",
- "cookie",
- "eventsource-client",
- "http",
- "log",
- "md5 0.8.0",
- "mime_guess",
- "openssl-sys",
- "rand 0.9.1",
- "reqwest",
- "reqwest_cookie_store",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tauri-plugin-clipboard-manager",
- "tauri-plugin-deep-link",
- "tauri-plugin-dialog",
- "tauri-plugin-fs",
- "tauri-plugin-log",
- "tauri-plugin-opener",
- "tauri-plugin-os",
- "tauri-plugin-shell",
- "tauri-plugin-single-instance",
- "tauri-plugin-updater",
- "tauri-plugin-window-state",
- "thiserror 2.0.17",
- "tokio",
- "tokio-stream",
- "ts-rs",
- "uuid",
- "yaak-common",
- "yaak-crypto",
- "yaak-fonts",
- "yaak-git",
- "yaak-grpc",
- "yaak-http",
- "yaak-license",
- "yaak-mac-window",
- "yaak-models",
- "yaak-plugins",
- "yaak-sse",
- "yaak-sync",
- "yaak-templates",
- "yaak-ws",
 ]
 
 [[package]]
