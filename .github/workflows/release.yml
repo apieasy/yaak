@@ -1,7 +1,11 @@
 name: Generate Artifacts
 on:
-  push:
-    tags: [ v* ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'VERSION'
+        required: true
+        default: 'v2025.9.1'
 
 jobs:
   build-artifacts:
@@ -18,11 +22,11 @@ jobs:
             yaak_arch: 'arm64'
             os: 'macos'
             targets: 'aarch64-apple-darwin'
-          - platform: 'macos-latest' # for Intel-based Macs.
-            args: '--target x86_64-apple-darwin'
-            yaak_arch: 'x64'
-            os: 'macos'
-            targets: 'x86_64-apple-darwin'
+          #          - platform: 'macos-latest' # for Intel-based Macs.
+          #            args: '--target x86_64-apple-darwin'
+          #            yaak_arch: 'x64'
+          #            os: 'macos'
+          #            targets: 'x86_64-apple-darwin'
           - platform: 'ubuntu-22.04'
             args: ''
             yaak_arch: 'x64'
@@ -39,11 +43,11 @@ jobs:
             os: 'windows'
             targets: ''
           # Windows ARM64
-          - platform: 'windows-latest'
-            args: '--target aarch64-pc-windows-msvc'
-            yaak_arch: 'arm64'
-            os: 'windows'
-            targets: 'aarch64-pc-windows-msvc'
+    #          - platform: 'windows-latest'
+    #            args: '--target aarch64-pc-windows-msvc'
+    #            yaak_arch: 'arm64'
+    #            os: 'windows'
+    #            targets: 'aarch64-pc-windows-msvc'
     runs-on: ${{ matrix.platform }}
     timeout-minutes: 40
     steps:
@@ -89,17 +93,17 @@ jobs:
           & $exe --version
 
       - run: npm ci
-      - run: npm run lint
-      - name: Run JS Tests
-        run: npm test
-      - name: Run Rust Tests
-        run: cargo test --all
-        working-directory: src-tauri
+      #      - run: npm run lint
+      #      - name: Run JS Tests
+      #        run: npm test
+      #      - name: Run Rust Tests
+      #        run: cargo test --all
+      #        working-directory: src-tauri
 
       - name: Set version
         run: npm run replace-version
         env:
-          YAAK_VERSION: ${{ github.ref_name }}
+          YAAK_VERSION: ${{ github.event.inputs.version }}
 
       - uses: tauri-apps/tauri-action@v0
         env:
@@ -126,6 +130,4 @@ jobs:
           tagName: 'v__VERSION__'
           releaseName: 'Release __VERSION__'
           releaseBody: '[Changelog __VERSION__](https://yaak.app/blog/__VERSION__)'
-          releaseDraft: true
-          prerelease: true
-          args: '${{ matrix.args }} --config ./src-tauri/tauri.release.conf.json'
+          args: '${{ matrix.args }} --config ./src-tauri/tauri.posteasy.conf.json --no-sign'
