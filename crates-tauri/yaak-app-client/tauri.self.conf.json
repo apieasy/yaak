@@ -1,6 +1,6 @@
 {
   "build": {
-    "features": ["updater"]
+    "features": ["license"]
   },
   "bundle": {
     "publisher": "Yaak",
