@@ -1,4 +1,7 @@
 {
+  "build": {
+    "features": ["updater", "license"]
+  },
   "bundle": {
     "publisher": "Yaak",
     "license": "MIT",
