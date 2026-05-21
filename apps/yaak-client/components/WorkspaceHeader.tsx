@@ -53,7 +53,7 @@ export const WorkspaceHeader = memo(function WorkspaceHeader({
         </HStack>
       </HStack>
       <div className="pointer-events-none w-full max-w-[30vw] mx-auto flex justify-center">
-        <RecentRequestsDropdown />
+        {/*<RecentRequestsDropdown />*/}
       </div>
       <div className="flex-1 flex gap-1 items-center h-full justify-end pointer-events-none pr-1">
         <ImportCurlButton />
